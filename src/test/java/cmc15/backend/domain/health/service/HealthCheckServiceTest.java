@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -42,6 +43,18 @@ class HealthCheckServiceTest {
         assertThat(response)
                 .extracting("name", "input")
                 .contains("테스트 유저", "안녕하세요");
+    }
+
+    @Test
+    @DisplayName("헬스체크 POST 예외발생 테스트")
+    void 헬스체크_POST_테스트_예외발생() {
+        // given
+        HealthCheckRequest.Request request = new HealthCheckRequest.Request("테스트 유저", "ERROR");
+
+        // when // then
+        assertThatThrownBy(() -> healthCheckService.isRequestHealthCheck(request))
+                .extracting("result.code","result.message")
+                .contains(-1, "실패");
     }
 
 }
