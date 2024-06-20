@@ -23,6 +23,7 @@ class HealthCheckControllerTest extends ControllerTestSupport {
                 .andExpect(status().isOk());
     }
 
+
     @Test
     @DisplayName("헬스체크 POST API")
     void 헬스체크_POST_API_테스트() throws Exception {
@@ -35,5 +36,19 @@ class HealthCheckControllerTest extends ControllerTestSupport {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("헬스체크 POST API")
+    void 헬스체크_POST_API_EMPTY_테스트() throws Exception {
+        // given
+        HealthCheckRequest.Request request = new HealthCheckRequest.Request("", "안녕하세요");
+
+        // when // then
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/health")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }
