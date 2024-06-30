@@ -38,3 +38,4 @@ out/
 
 ### append ###
 src/main/resources/application.yml
+src/test/resources/application.yml
