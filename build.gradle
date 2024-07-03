@@ -1,6 +1,4 @@
-import com.sun.security.ntlm.Server
 import org.hidetake.gradle.swagger.generator.GenerateSwaggerUI
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 buildscript {
     ext {
@@ -43,8 +41,8 @@ swaggerSources {
 
 openapi3 {
     servers = [
-            { url = "http://배포중인 주소" },
-            { url = "http://localhost:8080" }
+            { url = "http://localhost:8080" },
+            { url = "http://배포중인 주소" }
     ]
     title = "API 문서"
     description = "RestDocsWithSwagger Docs"
@@ -57,6 +55,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // h2
     runtimeOnly 'com.h2database:h2'
@@ -70,6 +69,7 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // restDocs + swagger
